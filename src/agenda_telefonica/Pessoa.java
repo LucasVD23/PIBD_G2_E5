@@ -126,9 +126,8 @@ public class Pessoa {
 
 	public static String SelecionaPessoa(String n) {
 		try {
-
 			// Abrir a conexão
-			con = DriverManager.getConnection(DATABASE_URL, "root", "root");
+			Pessoa.con = DriverManager.getConnection(Pessoa.DATABASE_URL);
 			// Criar o comando
 			stm = con.createStatement();
 			rs = stm.executeQuery("select * from Pessoa where pessoa.nome = '" + n + "'");
