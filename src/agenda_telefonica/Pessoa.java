@@ -3,7 +3,11 @@ package agenda_telefonica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Pessoa {
 	private int codigo;
@@ -18,6 +22,10 @@ public class Pessoa {
 	
 	static final String DATABASE_URL = "jdbc:postgresql://localhost/pibd?user=postgres&password=postgres";
 	static Connection con = null;
+	static Statement stm = null;
+	static ResultSet rs = null;
+	static ResultSetMetaData md = null;
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -94,7 +102,77 @@ public class Pessoa {
 		}catch(Exception e){
 			System.err.println(e);
 		}
-		
 	
+	}
+	public void SelecionaPessoa() {
+		try{
+			//Abrir a conexão
+			con = DriverManager.getConnection(DATABASE_URL,"postgres","postgres");
+			//Criar o comando
+			stm = con.createStatement();
+			rs = stm.executeQuery("select * from dvd");
+			//Criar o metadado da tabela
+			md = rs.getMetaData();
+			int nroColunas = md.getColumnCount();
+			//Exibir os metadados/dados
+			for(int i = 1; i <= nroColunas; i++)
+				System.out.printf("%s\t",
+						md.getColumnName(i));
+			
+			ArrayList<Pessoa> p = new ArrayList<Pessoa>();
+			int cod;
+			String nome;
+			String data_nasc;
+			String home;
+			String cep;
+			int numero;
+			String complemento;
+			int qtd_carros;
+			int qtd_amigos;
+			Pessoa p1;
+			//Usar os dados e mostra-los
+			while(rs.next()){
+				cod = rs.getInt("codigo");
+				nome = rs.getString("nome");
+				data_nasc = rs.getString("data_nascimento");
+				home = rs.getString("hompage");
+				cep = rs.getString("cep");
+				numero = rs.getInt("numero");
+				complemento = rs.getString("complemento");
+				qtd_carros = rs.getInt("qtd_carros");
+				qtd_amigos = rs.getInt("qtd_amigos");
+				
+				p1 = new Pessoa();
+				p1.setCodigo(cod);
+				p1.setNome(nome);
+				p1.setData_nascimento(data_nasc);
+				p1.setHomepage(home);
+				p1.setCep(cep);
+				p1.setNumero(numero);
+				p1.setComplemento(complemento);
+				p1.setQtd_carros(qtd_carros);
+				p1.setQtd_amigos(qtd_amigos);
+			}
+			
+			for(Pessoa umaPessoa : p){
+				System.out.printf("\n%d\t%s\t%s\t%s\t%s\t%d\t%s\t%d\t%d",
+						umaPessoa.getCodigo(),
+						umaPessoa.getNome(),
+						umaPessoa.getData_nascimento(),
+						umaPessoa.getHomepage(),
+						umaPessoa.getNumero(),
+						umaPessoa.getComplemento(),
+						umaPessoa.getQtd_carros(),
+						umaPessoa.getQtd_amigos());
+			}
+			//Fechar os objetos
+			rs.close();
+			stm.close();
+			con.close();	
+		}catch(SQLException e){
+			System.err.println(e);
+		}catch(Exception e){
+			System.err.println(e);
+		}
 	}
 }
