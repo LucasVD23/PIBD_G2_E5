@@ -22,7 +22,7 @@ public class Pessoa {
 
 	static String sel = "";
 
-	static final String DATABASE_URL = "jdbc:postgresql://localhost/agenda_telefonica?user=root&password=root";
+	static final String DATABASE_URL = "jdbc:postgresql://localhost/Agenda_telefonica?user=postgres&password=postegres";
 	static Connection con = null;
 	static Statement stm = null;
 	static ResultSet rs = null;
@@ -100,20 +100,23 @@ public class Pessoa {
 		this.qtd_carros = qtd_carros;
 	}
 
-	public static void InserePessoa(int codigo, String nome, String homepage, String cep, int numero, String complemento) {
+	public static void InserePessoa(int codigo, String nome, String data_nascimento, String homepage, String cep, int numero, String complemento) {
 		try {
 			Pessoa.con = DriverManager.getConnection(Pessoa.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement(
-					"insert into " + "Pessoa(codigo,nome,homepage,cep,numero,complemento,qtd_carros,qtd_amigos) "
-							+ "values (?,?,?,?,?,?,?,?)");
+					"insert into " + "Pessoa(codigo,nome,data_nascimento,homepage,cep,numero,complemento,qtd_carros,qtd_amigos) "
+							+ "values (?,?,?,?,?,?,?,?,?)");
 			insere.setInt(1, codigo);
 			insere.setString(2, nome);
-			insere.setString(3, homepage);
-			insere.setString(4, cep);
-			insere.setInt(5, numero);
-			insere.setString(6, complemento);
-			insere.setInt(7, 0);
+			insere.setString(3, data_nascimento);
+			insere.setString(4, homepage);
+			insere.setString(5, cep);
+			insere.setInt(6, numero);
+			insere.setString(7, complemento);
 			insere.setInt(8, 0);
+			insere.setInt(9, 0);
+
+			insere.executeUpdate();
 
 		} catch (SQLException e) {
 			System.err.println(e);
@@ -179,7 +182,6 @@ public class Pessoa {
 				Pessoa1.setQtd_carros(qtd_c);
 				Pessoa1.setQtd_amigos(qtd_a);
 				d.add(Pessoa1);
-				System.out.println("x");
 			}
 
 			for (Pessoa umPessoa : d) {

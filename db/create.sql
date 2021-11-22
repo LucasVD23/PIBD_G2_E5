@@ -11,7 +11,7 @@ CREATE TABLE  pessoa
 (
     codigo SERIAL,
     nome VARCHAR (50) NOT NULL,
-    data_nascimento DATE NOT NULL,
+    data_nascimento VARCHAR (50) NOT NULL,
     homepage VARCHAR (50),
     cep VARCHAR (15) NOT NULL,
     numero INTEGER NOT NULL,

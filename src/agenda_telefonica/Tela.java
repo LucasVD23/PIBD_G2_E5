@@ -6,19 +6,42 @@ import java.awt.event.*;
 
 class ActionEventDemo implements ActionListener {
     JFrame frame = new JFrame("Consulta da base de Pessoas");
-    JButton send1 = new JButton("Listar Pessoas");
-    JButton send2 = new JButton("Criar Pessoa");
+    JButton listar_pessoas = new JButton("Listar Pessoas");
+    JButton send_criar_pessoa = new JButton("Criar Pessoa");
+    JButton send_criar_carro = new JButton("Criar Carro");
+
 
     JLabel label = new JLabel("Digite o nome da pessoa que voce quer procurar: ");
-    JTextField tf = new JTextField(10); // accepts upto 10 characters
+    JTextField tf = new JTextField(10);  
     JTextArea ta = new JTextArea();
 
-    JTextField codigo = new JTextField(10); // accepts upto 10 characters
-    JTextField nome = new JTextField(10); // accepts upto 10 characters
-    JTextField cep = new JTextField(10); // accepts upto 10 characters
-    JTextField numero = new JTextField(10); // accepts upto 10 characters
-    JTextField complemento = new JTextField(10); // accepts upto 10 characters
-    JTextField homepage = new JTextField(10); // accepts upto 10 characters
+    JLabel codigo_l = new JLabel("codigo ");
+    JLabel nome_l = new JLabel("nome");
+    JLabel data_l = new JLabel("nascimento");
+    JLabel cep_l = new JLabel("cep ");
+    JLabel numero_l = new JLabel("numeo ");
+    JLabel complemento_l = new JLabel("complemento ");
+    JLabel homepage_l = new JLabel("homepage ");
+
+    JLabel placa_l = new JLabel("placa ");
+    JLabel ano_l = new JLabel("ano ");
+    JLabel cor_l = new JLabel("cor ");
+    JLabel modelo_l = new JLabel("modelo ");
+
+
+    JTextField codigo = new JTextField(10);  
+    JTextField nome = new JTextField(10);  
+    JTextField data = new JTextField(10);  
+    JTextField cep = new JTextField(10);  
+    JTextField numero = new JTextField(10);  
+    JTextField complemento = new JTextField(10);  
+    JTextField homepage = new JTextField(10);  
+
+    JTextField placa = new JTextField(10);  
+    JTextField ano = new JTextField(10);  
+    JTextField cor = new JTextField(10);  
+    JTextField modelo = new JTextField(10);
+     
 
     ActionEventDemo() {
         prepareGUI();
@@ -42,18 +65,49 @@ class ActionEventDemo implements ActionListener {
 
         JPanel criar = new JPanel();
 
-
         panel.add(label); // Components Added using Flow Layout
         panel.add(tf);
-        panel.add(send1);
+        panel.add(listar_pessoas);
+        BoxLayout boxlayout = new BoxLayout(criar, BoxLayout.Y_AXIS);
+        criar.setLayout(boxlayout);;
 
+        criar.add(codigo_l);
         criar.add(codigo);
+
+        criar.add(cep_l);
         criar.add(cep);
+
+        criar.add(numero_l);
         criar.add(numero);
+
+        criar.add(complemento_l);
         criar.add(complemento);
+
+        criar.add(nome_l);
         criar.add(nome);
+
+        criar.add(data_l);
+        criar.add(data);
+
+        criar.add(homepage_l);
         criar.add(homepage);
-        criar.add(send2);
+
+        criar.add(send_criar_pessoa);
+
+        criar.add(placa_l);
+        criar.add(placa);
+
+        criar.add(ano_l);
+        criar.add(ano);
+
+        criar.add(modelo_l);
+        criar.add(modelo);
+
+        criar.add(cor_l);
+        criar.add(cor);
+
+        criar.add(send_criar_carro);
+
 
         // Text Area at the Center
 
@@ -62,19 +116,21 @@ class ActionEventDemo implements ActionListener {
         // frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, ta);
         frame.getContentPane().add(BorderLayout.NORTH, criar);
+
         frame.setVisible(true);
 
-        send1.addActionListener(this);
+        listar_pessoas.addActionListener(this);
+        send_criar_pessoa.addActionListener(this);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == send1)
+        if (e.getSource() == listar_pessoas)
             ta.setText(tf.getText() + "\n" + Pessoa.SelecionaPessoa(tf.getText()));
-        else if (e.getSource() == send2)
-            Pessoa.InserePessoa(Integer.parseInt(codigo.getText()), nome.getText(), cep.getText(),
+        else if (e.getSource() == send_criar_pessoa)
+            Pessoa.InserePessoa(Integer.parseInt(codigo.getText()), nome.getText(), data.getText(), cep.getText(),
                     complemento.getText(), Integer.parseInt(numero.getText()), homepage.getText());
         tf.setText("");
 
