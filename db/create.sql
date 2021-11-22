@@ -1,3 +1,6 @@
+CREATE DATABASE agenda_telefonica;
+USING DATABASE agenda_telefonica;
+
 DROP TABLE IF EXISTS Possui;
 DROP TABLE IF EXISTS amizade;
 DROP TABLE IF EXISTS Telefone;

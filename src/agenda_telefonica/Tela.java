@@ -3,7 +3,7 @@ package agenda_telefonica;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+/*
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,14 +21,14 @@ import java.util.ArrayList;
 	static ResultSetMetaData md = null;
 	static String sel = "";
 	
-	 static String  select() {
+	static String  select(String n) {
 		 try{
 			
 			//Abrir a conexão
 			con = DriverManager.getConnection(DATABASE_URL,"root","root");
 			//Criar o comando
 			stm = con.createStatement();
-			rs = stm.executeQuery("select * from dvd");
+			rs = stm.executeQuery("select * from Pessoa where pessoa.nome = '" + n + "'");
 			//Criar o metadado da tabela
 			md = rs.getMetaData();
 			int nroColunas = md.getColumnCount();
@@ -37,35 +37,62 @@ import java.util.ArrayList;
 				System.out.printf("%s\t",
 						md.getColumnName(i));
 			
-			ArrayList<DVD> d = new ArrayList<DVD>();
-			int ser;
-			String tit;
-			String desc;
-			double dur;
-			DVD dvd1;
+			ArrayList<Pessoa> d = new ArrayList<Pessoa>();
+
+			Pessoa Pessoa1;
+
+            int cod;
+            String nome;
+            String dtn;
+            String home;
+            String cep;
+            int num;
+            String compl;
+            int qtd_c;
+            int qtd_a;
 			sel = "";	
 			//Usar os dados e mostra-los
 			while(rs.next()){
-				ser = rs.getInt("serial");
-				tit = rs.getString("titulo");
-				desc = rs.getString("descricao");
-				dur = rs.getDouble("duracao");
-				dvd1 = new DVD();
-				dvd1.setSerial(ser);
-				dvd1.setTitulo(tit);
-				dvd1.setDescricao(desc);
-				dvd1.setDuracao(dur);
-				d.add(dvd1);
+
+				Pessoa1 = new Pessoa();
+
+                cod = rs.getInt("codigo");
+                nome = rs.getString("nome");
+                dtn = rs.getString("data_nascimento");
+                home = rs.getString("homepage");
+                cep = rs.getString("cep");
+                compl = rs.getString("complemento");
+                num = rs.getInt("numero");
+                qtd_c = rs.getInt("qtd_carros");
+                qtd_a = rs.getInt("qtd_amigos");
+
+                Pessoa1.setCodigo(cod);
+                Pessoa1.setNome(nome);
+                Pessoa1.setData_nascimento(dtn);
+                Pessoa1.setHomepage(home);
+                Pessoa1.setCep(cep);
+                Pessoa1.setNumero(num);
+                Pessoa1.setComplemento(compl);
+                Pessoa1.setQtd_carros(qtd_c);
+                Pessoa1.setQtd_amigos(qtd_a);
+				d.add(Pessoa1);
+                System.out.println("x");
 			}
 			
-			for(DVD umDVD : d){
-				sel = sel + umDVD.getSerial() + ", " +	umDVD.getTitulo() + ", " + umDVD.getDescricao() + ", " + umDVD.getDescricao() + ", " + umDVD.getDuracao() + "\n " ;
+			for(Pessoa umPessoa : d){
+				sel = sel + umPessoa.getCodigo() + ", " +	umPessoa.getNome() + ", " + umPessoa.getData_nascimento() + ", " + umPessoa.getHomepage() + ", " + umPessoa.getCep()
+                + ", " +	umPessoa.getNumero() + ", " + umPessoa.getComplemento() + ", " + umPessoa.getQtd_carros() + ", " + umPessoa.getQtd_amigos() + "\n " ;
 						
-				System.out.printf("\n%d\t%s\t%s\t%.2f",
-						umDVD.getSerial(),
-						umDVD.getTitulo(),
-						umDVD.getDescricao(),
-						umDVD.getDuracao());
+				System.out.printf("\n%d\t%s\t%s\t%s\t%s\t%d\t%s\t%d\t%d",
+                    umPessoa.getCodigo(),
+                    umPessoa.getNome(),
+                    umPessoa.getData_nascimento(),
+                    umPessoa.getHomepage(),
+                    umPessoa.getCep(),
+                    umPessoa.getNumero(),
+                    umPessoa.getComplemento(),
+                    umPessoa.getQtd_carros(),
+                    umPessoa.getQtd_amigos());
 			}
 			//Fechar os objetos
 			rs.close();
@@ -79,13 +106,13 @@ import java.util.ArrayList;
 		return sel;
 	}
 }
-
+*/
 
 class ActionEventDemo implements ActionListener {
-    JFrame frame = new JFrame("Consulta da base de DVDs");
-    JButton send = new JButton("Consulta");
+    JFrame frame = new JFrame("Consulta da base de Pessoas");
+    JButton send = new JButton("Listar Pessoas");
     
-    JLabel label = new JLabel("Digite um texto: ");
+    JLabel label = new JLabel("Digite o nome da pessoa que voce quer procurar: ");
     JTextField tf = new JTextField(10); // accepts upto 10 characters
     JTextArea ta = new JTextArea();
     
@@ -98,9 +125,9 @@ class ActionEventDemo implements ActionListener {
     	//Creating the Frame
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        frame.setSize(800, 600);
         //Creating the MenuBar and adding components
-        JMenuBar mb = new JMenuBar();
+        /*JMenuBar mb = new JMenuBar();
         JMenu m1 = new JMenu("FILE");
         JMenu m2 = new JMenu("Help");
         mb.add(m1);
@@ -108,7 +135,7 @@ class ActionEventDemo implements ActionListener {
         JMenuItem m11 = new JMenuItem("Open");
         JMenuItem m22 = new JMenuItem("Save as");
         m1.add(m11);
-        m1.add(m22);
+        m1.add(m22);*/
 
         //Creating the panel at bottom and adding components
         JPanel panel = new JPanel(); // the panel is not visible in output
@@ -123,7 +150,7 @@ class ActionEventDemo implements ActionListener {
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, mb);
+        //frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, ta);
         frame.setVisible(true);
     
@@ -136,7 +163,7 @@ class ActionEventDemo implements ActionListener {
     public void actionPerformed(ActionEvent e) {
        
     	if (e.getSource()== send)
-    	    ta.setText(tf.getText() + "\n" + Sel.select());
+    	    ta.setText(tf.getText() + "\n" + Pessoa.SelecionaPessoa(tf.getText()));
     	    	
     	tf.setText("");
        
