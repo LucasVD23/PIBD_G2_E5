@@ -22,7 +22,7 @@ public class Pessoa {
 
 	static String sel = "";
 
-	static final String DATABASE_URL = "jdbc:postgresql://localhost/agenda_telefonica?user=root&password=root";
+	static final String DATABASE_URL = "jdbc:postgresql://localhost/Agenda_telefonica?user=postgres&password=postegres";
 	static Connection con = null;
 	static Statement stm = null;
 	static ResultSet rs = null;
