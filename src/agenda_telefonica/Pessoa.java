@@ -100,8 +100,7 @@ public class Pessoa {
 		this.qtd_carros = qtd_carros;
 	}
 
-	public void InserePessoa(int codigo, String nome, String homepage, String cep, int numero, String complemento,
-			int qtd_carros, int qtd_amigos) {
+	public static void InserePessoa(int codigo, String nome, String homepage, String cep, int numero, String complemento) {
 		try {
 			Pessoa.con = DriverManager.getConnection(Pessoa.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement(
@@ -113,8 +112,8 @@ public class Pessoa {
 			insere.setString(4, cep);
 			insere.setInt(5, numero);
 			insere.setString(6, complemento);
-			insere.setInt(7, qtd_amigos);
-			insere.setInt(8, qtd_amigos);
+			insere.setInt(7, 0);
+			insere.setInt(8, 0);
 
 		} catch (SQLException e) {
 			System.err.println(e);
@@ -130,7 +129,10 @@ public class Pessoa {
 			Pessoa.con = DriverManager.getConnection(Pessoa.DATABASE_URL);
 			// Criar o comando
 			stm = con.createStatement();
-			rs = stm.executeQuery("select * from Pessoa where pessoa.nome = '" + n + "'");
+			if (n.length() > 0)
+				rs = stm.executeQuery("select * from Pessoa where pessoa.nome = '" + n + "'");
+			else
+				rs = stm.executeQuery("select * from Pessoa");
 			// Criar o metadado da tabela
 			md = rs.getMetaData();
 			int nroColunas = md.getColumnCount();
