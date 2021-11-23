@@ -20,10 +20,12 @@ class ActionEventDemo implements ActionListener {
     JLabel label_p = new JLabel("Digite o nome da pessoa que voce quer procurar: ");
     JLabel label_c = new JLabel("Digite o modelo do carro que voce quer procurar: ");
     JLabel label_Ami = new JLabel("Digite o codigo da pessoa para ver seus amigos: ");
+    JLabel label_Pos = new JLabel("Digite o codigo da pessoa ou a placa do carro: ");
 
     JTextField tf_p = new JTextField(10);  
     JTextField tf_c = new JTextField(10);  
-    JTextField tf_Ami = new JTextField(10);  
+    JTextField tf_Ami = new JTextField(10); 
+    JTextField tf_Pos = new JTextField(10);   
 
     JTextArea ta = new JTextArea();
 
@@ -78,7 +80,7 @@ class ActionEventDemo implements ActionListener {
         JPanel criar_Pos = new JPanel();
         JPanel criar = new JPanel();
 
-        panel.setLayout(new GridLayout(4,3));
+        panel.setLayout(new GridLayout(5,3));
         
         panel.add(label_p);
         panel.add(tf_p);
@@ -89,9 +91,10 @@ class ActionEventDemo implements ActionListener {
         panel.add(label_Ami);
         panel.add(tf_Ami);
         panel.add(listar_amizades);
-
+        panel.add(label_Pos);
+        panel.add(tf_Pos);
         panel.add(listar_possui);
-        panel.add(listar_telefones);
+        //panel.add(listar_telefones);
 
         criar_P.setLayout(new BoxLayout(criar_P, BoxLayout.PAGE_AXIS));
 
@@ -175,7 +178,7 @@ class ActionEventDemo implements ActionListener {
         listar_carros.addActionListener(this);
         listar_amizades.addActionListener(this);
         listar_possui.addActionListener(this);
-        listar_telefones.addActionListener(this);
+        //listar_telefones.addActionListener(this);
 
         send_criar_pessoa.addActionListener(this);
         send_criar_carro.addActionListener(this);
@@ -194,7 +197,7 @@ class ActionEventDemo implements ActionListener {
         else if (e.getSource() == listar_amizades)
             ta.setText(tf_Ami.getText() + "\n" + Amizade.SelecionaAmizade(tf_Ami.getText()));
         else if (e.getSource() == listar_possui)
-            ta.setText(tf_c.getText() + "\n" + Carro.SelecionaCarro(tf_c.getText()));
+            ta.setText(tf_Pos.getText() + "\n" + Possui.SelecionaPossui(tf_Pos.getText()));
 
 
 
@@ -214,6 +217,7 @@ class ActionEventDemo implements ActionListener {
         tf_p.setText("");
         tf_c.setText("");
         tf_Ami.setText("");
+        tf_Pos.setText("");
 
     }
 }

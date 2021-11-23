@@ -49,6 +49,8 @@ public class Amizade extends Abstract{
 			insere.setInt(1,codigo1);
 			insere.setInt(2,codigo2);
 			insere.setString(3, data);
+
+			insere.executeUpdate();
 			
 		}catch(SQLException e){
 			System.err.println(e);
@@ -64,7 +66,7 @@ public class Amizade extends Abstract{
 			// Criar o comando
 			stm = con.createStatement();
 			if (n.length() > 0)
-				rs = stm.executeQuery("select * from Amizade where Amizde.codigo1 = '" + n + "'");
+				rs = stm.executeQuery("select * from Amizade where Amizade.codigo1 = '" + n + "' or Amizade.codigo2 = '" + n + "'");
 			else
 				rs = stm.executeQuery("select * from Amizade");
 			// Criar o metadado da tabela
@@ -96,7 +98,7 @@ public class Amizade extends Abstract{
 				amizade1.setCodigo1(codigo1);
 				amizade1.setCodigo2(codigo2);
 				amizade1.setData_inicio(data_inicio);
-				System.out.println("x");
+				d.add(amizade1);
 			}
 
 			for (Amizade umAmizade : d) {

@@ -41,6 +41,8 @@ public class Possui extends Abstract{
 							+ "values (?,?)");
 			insere.setInt(1,codigoPessoa);
 			insere.setString(2, placa);
+
+			insere.executeUpdate();
 			
 		}catch(SQLException e){
 			System.err.println(e);
@@ -49,68 +51,15 @@ public class Possui extends Abstract{
 		}
 	
 	}
-	public static String SelecionaPossuiporPessoa(String n) {
+	public static String SelecionaPossui(String n) {
 		try {
 			// Abrir a conexão
 			Possui.con = DriverManager.getConnection(Possui.DATABASE_URL);
 			// Criar o comando
 			stm = con.createStatement();
-			if (n.length() > 0)
+			if (n.length() > 0 && n.matches("[0-1000]*"))
 				rs = stm.executeQuery("select * from Possui where Possui.codigoPessoa = '" + n + "'");
-			else
-				rs = stm.executeQuery("select * from Possui");
-			// Criar o metadado da tabela
-			md = rs.getMetaData();
-			int nroColunas = md.getColumnCount();
-			// Exibir os metadados/dados
-			for (int i = 1; i <= nroColunas; i++)
-				System.out.printf("%s\t", md.getColumnName(i));
-
-			ArrayList<Possui> d = new ArrayList<Possui>();
-
-			Possui possui1;
-
-			int codigoPessoa;
-			String placa;
-
-			sel = "";
-			// Usar os dados e mostra-los
-			while (rs.next()) {
-
-				possui1 = new Possui();
-
-				codigoPessoa = rs.getInt("codigoPessoa");
-				placa = rs.getString("placa");
-
-				possui1.setCodigoPessoa(codigoPessoa);
-				possui1.setPlaca(placa);
-				System.out.println("x");
-			}
-
-			for (Possui umPossui : d) {
-				sel = sel + umPossui.getCodigoPessoa() + ", " + umPossui.getPlaca() 
-						+ "\n ";
-
-				System.out.printf("\n%d\t%s", umPossui.getCodigoPessoa(), umPossui.getPlaca());
-			}
-			// Fechar os objetos
-			rs.close();
-			stm.close();
-			con.close();
-		} catch (SQLException e) {
-			System.err.println(e);
-		} catch (Exception e) {
-			System.err.println(e);
-		}
-		return sel;
-	}
-	public static String SelecionaPossuiporCarro(String n) {
-		try {
-			// Abrir a conexão
-			Possui.con = DriverManager.getConnection(Possui.DATABASE_URL);
-			// Criar o comando
-			stm = con.createStatement();
-			if (n.length() > 0)
+			else if (n.length() > 0)
 				rs = stm.executeQuery("select * from Possui where Possui.placa = '" + n + "'");
 			else
 				rs = stm.executeQuery("select * from Possui");
@@ -139,11 +88,11 @@ public class Possui extends Abstract{
 
 				possui1.setCodigoPessoa(codigoPessoa);
 				possui1.setPlaca(placa);
-				System.out.println("x");
+				d.add(possui1);
 			}
 
 			for (Possui umPossui : d) {
-				sel = sel + umPossui.getCodigoPessoa() + ", " + umPossui.getPlaca() + ", "
+				sel = sel + umPossui.getCodigoPessoa() + ", " + umPossui.getPlaca() 
 						+ "\n ";
 
 				System.out.printf("\n%d\t%s", umPossui.getCodigoPessoa(), umPossui.getPlaca());
