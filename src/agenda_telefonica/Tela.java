@@ -3,6 +3,8 @@ package agenda_telefonica;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Date;
+import java.time.LocalDate;
 
 class ActionEventDemo implements ActionListener {
     JFrame frame = new JFrame("Consulta da base de Agenda_Telefônica");
@@ -231,8 +233,13 @@ class ActionEventDemo implements ActionListener {
                     complemento.getText(), Integer.parseInt(numero.getText()), homepage.getText());
         else if (e.getSource() == send_criar_carro)
             Carro.InsereCarro(placa.getText(), Integer.parseInt(ano.getText()), cor.getText(), modelo.getText());
-        else if (e.getSource() == send_criar_amizade)
-            Amizade.InsereAmizade(Integer.parseInt(codigo1.getText()), Integer.parseInt(codigo2.getText()), data_amizade.getText());
+        else if (e.getSource() == send_criar_amizade){
+        	
+        	LocalDate obj = LocalDate.now();
+        	Date date = Date.valueOf(obj);
+        	
+            Amizade.InsereAmizade(Integer.parseInt(codigo1.getText()), Integer.parseInt(codigo2.getText()), date);
+        }
         else if (e.getSource() == send_criar_possui)
             Possui.InserePossui(Integer.parseInt(codigoP.getText()), placaP.getText());
 

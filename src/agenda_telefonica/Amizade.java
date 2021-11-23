@@ -1,6 +1,7 @@
 package agenda_telefonica;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class Amizade extends Abstract{
 	private int codigo1;
 	private int codigo2;
-	private String data_inicio;
+	private Date data_inicio;
 	
 	static Connection con = null;
 	static Statement stm = null;
@@ -33,14 +34,14 @@ public class Amizade extends Abstract{
 	public void setCodigo2(int codigo2) {
 		this.codigo2 = codigo2;
 	}
-	public String getData_inicio() {
+	public Date getData_inicio() {
 		return data_inicio;
 	}
-	public void setData_inicio(String data_inicio) {
+	public void setData_inicio(Date data_inicio) {
 		this.data_inicio = data_inicio;
 	}
 	
-	public static void InsereAmizade(int codigo1, int codigo2, String data) {
+	public static void InsereAmizade(int codigo1, int codigo2, Date data) {
 		try {
 			Amizade.con = DriverManager.getConnection(Amizade.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement("insert into "
@@ -48,7 +49,7 @@ public class Amizade extends Abstract{
 							+ "values (?,?,?)");
 			insere.setInt(1,codigo1);
 			insere.setInt(2,codigo2);
-			insere.setString(3, data);
+			insere.setDate(3, data);
 
 			insere.executeUpdate();
 			
@@ -82,7 +83,7 @@ public class Amizade extends Abstract{
 
 			int codigo1;
 			int codigo2;
-			String data_inicio;
+			Date data_inicio;
 			
 
 			sel = "";
@@ -93,7 +94,7 @@ public class Amizade extends Abstract{
 
 				codigo1= rs.getInt("codigo1");
 				codigo2 = rs.getInt("codigo2");
-				data_inicio = rs.getString("data_inicio");
+				data_inicio = rs.getDate("data_inicio");
 
 				amizade1.setCodigo1(codigo1);
 				amizade1.setCodigo2(codigo2);
