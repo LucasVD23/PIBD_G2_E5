@@ -44,6 +44,7 @@ class ActionEventDemo implements ActionListener {
 
     JLabel codigo1_l = new JLabel("Código 1");
     JLabel codigo2_l = new JLabel("Código 2");
+    JLabel data_amizade_l = new JLabel("Data de criação da amizade");
 
     JLabel codigoP_l = new JLabel("Código da pessoa");
     JLabel placaP_l = new JLabel("Placa do carro");
@@ -63,6 +64,7 @@ class ActionEventDemo implements ActionListener {
     
     JTextField codigo1 = new JTextField(10); 
     JTextField codigo2 = new JTextField(10); 
+    JTextField data_amizade = new JTextField(10); 
 
     JTextField codigoP = new JTextField(10); 
     JTextField placaP = new JTextField(10); 
@@ -154,11 +156,18 @@ class ActionEventDemo implements ActionListener {
 
         criar_Ami.setLayout(new BoxLayout(criar_Ami, BoxLayout.Y_AXIS));
 
-        criar_Ami.add(codigo1_l);
-        criar_Ami.add(codigo1);
+        JPanel criar_Ami_cods = new JPanel();
+        criar_Ami_cods.setLayout(new GridLayout(2,4));
 
-        criar_Ami.add(codigo2_l);
-        criar_Ami.add(codigo2);
+        criar_Ami_cods.add(codigo1_l);
+        criar_Ami_cods.add(codigo2_l);
+        criar_Ami_cods.add(codigo1);        
+        criar_Ami_cods.add(codigo2);
+
+        criar_Ami.add(criar_Ami_cods);
+
+        criar_Ami.add(data_amizade_l);
+        criar_Ami.add(data_amizade);
 
         criar_Ami.add(send_criar_amizade);
 
@@ -218,14 +227,14 @@ class ActionEventDemo implements ActionListener {
 
 
         else if (e.getSource() == send_criar_pessoa)
-            Pessoa.InserePessoa(Integer.parseInt(codigo.getText()), nome.getText(), data.getText(), cep.getText(),
+            Pessoa.InserePessoa(nome.getText(), data.getText(), cep.getText(),
                     complemento.getText(), Integer.parseInt(numero.getText()), homepage.getText());
         else if (e.getSource() == send_criar_carro)
             Carro.InsereCarro(placa.getText(), Integer.parseInt(ano.getText()), cor.getText(), modelo.getText());
         else if (e.getSource() == send_criar_amizade)
-            Amizade.InsereAmizade(Integer.parseInt(codigo1.getText()), Integer.parseInt(codigo2.getText()), "10/10/10");
+            Amizade.InsereAmizade(Integer.parseInt(codigo1.getText()), Integer.parseInt(codigo2.getText()), data_amizade.getText());
         else if (e.getSource() == send_criar_possui)
-            Possui.InserePossui(Integer.parseInt(codigo.getText()), placa.getText());
+            Possui.InserePossui(Integer.parseInt(codigoP.getText()), placaP.getText());
 
 
 

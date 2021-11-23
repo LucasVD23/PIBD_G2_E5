@@ -99,21 +99,20 @@ public class Pessoa extends Abstract{
 		this.qtd_carros = qtd_carros;
 	}
 
-	public static void InserePessoa(int codigo, String nome, String data_nascimento, String homepage, String cep, int numero, String complemento) {
+	public static void InserePessoa(String nome, String data_nascimento, String homepage, String cep, int numero, String complemento) {
 		try {
 			Pessoa.con = DriverManager.getConnection(Pessoa.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement(
-					"insert into " + "Pessoa(codigo,nome,data_nascimento,homepage,cep,numero,complemento,qtd_carros,qtd_amigos) "
-							+ "values (?,?,?,?,?,?,?,?,?)");
-			insere.setInt(1, codigo);
-			insere.setString(2, nome);
-			insere.setString(3, data_nascimento);
-			insere.setString(4, homepage);
-			insere.setString(5, cep);
-			insere.setInt(6, numero);
-			insere.setString(7, complemento);
+					"insert into " + "Pessoa(nome,data_nascimento,homepage,cep,numero,complemento,qtd_carros,qtd_amigos) "
+							+ "values (?,?,?,?,?,?,?,?)");
+			insere.setString(1, nome);
+			insere.setString(2, data_nascimento);
+			insere.setString(3, homepage);
+			insere.setString(4, cep);
+			insere.setInt(5, numero);
+			insere.setString(6, complemento);
+			insere.setInt(7, 0);
 			insere.setInt(8, 0);
-			insere.setInt(9, 0);
 
 			insere.executeUpdate();
 
