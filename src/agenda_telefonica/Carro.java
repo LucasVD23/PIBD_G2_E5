@@ -73,7 +73,7 @@ public class Carro extends Abstract{
 			// Criar o comando
 			stm = con.createStatement();
 			if (n.length() > 0)
-				rs = stm.executeQuery("select * from Carro where placa = '" + n + "'");
+				rs = stm.executeQuery("select * from Carro where modelo = '" + n + "'");
 			else
 				rs = stm.executeQuery("select * from Carro");
 			// Criar o metadado da tabela

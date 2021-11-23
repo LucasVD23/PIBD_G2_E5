@@ -33,7 +33,7 @@ public class Possui extends Abstract{
 		this.placa = placa;
 	}
 	
-	public void InserePossui(int codigoPessoa, String placa) {
+	public static void InserePossui(int codigoPessoa, String placa) {
 		try {
 			Possui.con = DriverManager.getConnection(Possui.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement("insert into "

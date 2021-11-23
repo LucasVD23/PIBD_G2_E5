@@ -40,7 +40,7 @@ public class Amizade extends Abstract{
 		this.data_inicio = data_inicio;
 	}
 	
-	public void InsereAmizade(int codigo1, int codigo2, String data) {
+	public static void InsereAmizade(int codigo1, int codigo2, String data) {
 		try {
 			Amizade.con = DriverManager.getConnection(Amizade.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement("insert into "
