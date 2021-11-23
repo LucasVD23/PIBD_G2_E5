@@ -32,7 +32,7 @@ public class Telefone extends Abstract {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public void InsereTelefone(int codigo_pessoa, String telefone) {
+	public static void InsereTelefone(int codigo_pessoa, String telefone) {
 		try {
 			Telefone.con = DriverManager.getConnection(Telefone.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement("insert into "
@@ -40,6 +40,8 @@ public class Telefone extends Abstract {
 							+ "values (?,?)");
 			insere.setInt(1,codigo_pessoa);
 			insere.setString(2, telefone);
+
+			insere.executeUpdate();
 			
 		}catch(SQLException e){
 			System.err.println(e);
@@ -55,7 +57,7 @@ public class Telefone extends Abstract {
 			// Criar o comando
 			stm = con.createStatement();
 			if (n.length() > 0)
-				rs = stm.executeQuery("select * from Telefone where telefone.codigo_pessoa = '" + n + "'");
+				rs = stm.executeQuery("select * from Telefone where codigo_pessoa = '" + n + "'");
 			else
 				rs = stm.executeQuery("select * from Telefone");
 			// Criar o metadado da tabela
@@ -83,7 +85,8 @@ public class Telefone extends Abstract {
 
 				telefone1.setCodigo_pessoa(codigo_pessoa);
 				telefone1.setTelefone(telefone);
-				System.out.println("x");
+				
+				d.add(telefone1);
 			}
 
 			for (Telefone umTelefone : d) {

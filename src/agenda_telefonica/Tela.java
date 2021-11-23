@@ -19,16 +19,19 @@ class ActionEventDemo implements ActionListener {
     JButton send_criar_carro = new JButton("Criar Carro");
     JButton send_criar_possui = new JButton("Criar Possui");
     JButton send_criar_amizade = new JButton("Criar Amizade");
+    JButton send_criar_telefone = new JButton("Criar Telefone");
 
     JLabel label_p = new JLabel("Digite o nome da pessoa que você quer procurar: ");
     JLabel label_c = new JLabel("Digite o modelo do carro que você quer procurar: ");
     JLabel label_Ami = new JLabel("Digite o código da pessoa para ver seus amigos: ");
     JLabel label_Pos = new JLabel("Digite o código da pessoa ou a placa do carro: ");
+    JLabel label_tel = new JLabel("Digite o código da pessoa para buscar seus telefones: ");
 
     JTextField tf_p = new JTextField(10);  
     JTextField tf_c = new JTextField(10);  
     JTextField tf_Ami = new JTextField(10); 
     JTextField tf_Pos = new JTextField(10);   
+    JTextField tf_tel = new JTextField(10);   
 
     JTextArea ta = new JTextArea(50, 40);
 
@@ -52,6 +55,9 @@ class ActionEventDemo implements ActionListener {
     JLabel codigoP_l = new JLabel("Código da pessoa");
     JLabel placaP_l = new JLabel("Placa do carro");
 
+    JLabel codigoT_l = new JLabel("Código da pessoa");
+    JLabel telefone_l = new JLabel("Telefone");
+
     JTextField codigo = new JTextField(10);  
     JTextField nome = new JTextField(10);  
     JTextField data = new JTextField(10);  
@@ -72,6 +78,9 @@ class ActionEventDemo implements ActionListener {
     JTextField codigoP = new JTextField(10); 
     JTextField placaP = new JTextField(10); 
 
+    JTextField codigoT = new JTextField(10); 
+    JTextField telefone = new JTextField(10); 
+
     ActionEventDemo() {
         prepareGUI();
 
@@ -81,7 +90,7 @@ class ActionEventDemo implements ActionListener {
         // Creating the Frame
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 600);
+        frame.setSize(1300, 800);
 
         // Creating the panel at bottom and adding components
         JPanel panel = new JPanel();
@@ -89,9 +98,10 @@ class ActionEventDemo implements ActionListener {
         JPanel criar_C = new JPanel();
         JPanel criar_Ami = new JPanel();
         JPanel criar_Pos = new JPanel();
+        JPanel criar_tel = new JPanel();
         JPanel criar = new JPanel();
 
-        criar.setLayout(new GridLayout(2,2));
+        criar.setLayout(new GridLayout(3,2));
         //criar.setLayout(new BoxLayout(criar, BoxLayout.Y_AXIS));
         criar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -110,7 +120,9 @@ class ActionEventDemo implements ActionListener {
         panel.add(label_Pos);
         panel.add(tf_Pos);
         panel.add(listar_possui);
-        //panel.add(listar_telefones);
+        panel.add(label_tel);
+        panel.add(tf_tel);
+        panel.add(listar_telefones);
 
         criar_P.setLayout(new BoxLayout(criar_P, BoxLayout.Y_AXIS));
 /*
@@ -189,15 +201,28 @@ class ActionEventDemo implements ActionListener {
 
         criar_Pos.add(send_criar_possui);
 
+        criar_tel.setLayout(new BoxLayout(criar_tel, BoxLayout.Y_AXIS));
+
+        criar_tel.add(codigoT_l);
+        criar_tel.add(codigoT);
+
+        criar_tel.add(telefone_l);
+        criar_tel.add(telefone);
+
+        criar_tel.add(send_criar_telefone);
+
         criar_C.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         criar_P.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         criar_Ami.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         criar_Pos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        criar_tel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         criar.add(criar_C);
         criar.add(criar_P);
         criar.add(criar_Ami);
         criar.add(criar_Pos);
+        criar.add(criar_tel);
+
         // Text Area at the Center
 
         // Adding Components to the frame.
@@ -211,13 +236,13 @@ class ActionEventDemo implements ActionListener {
         listar_carros.addActionListener(this);
         listar_amizades.addActionListener(this);
         listar_possui.addActionListener(this);
-        //listar_telefones.addActionListener(this);
+        listar_telefones.addActionListener(this);
 
         send_criar_pessoa.addActionListener(this);
         send_criar_carro.addActionListener(this);
         send_criar_amizade.addActionListener(this);
         send_criar_possui.addActionListener(this);
-
+        send_criar_telefone.addActionListener(this);
     }
 
     @Override
@@ -231,8 +256,8 @@ class ActionEventDemo implements ActionListener {
             ta.setText(tf_Ami.getText() + "\n" + Amizade.SelecionaAmizade(tf_Ami.getText()));
         else if (e.getSource() == listar_possui)
             ta.setText(tf_Pos.getText() + "\n" + Possui.SelecionaPossui(tf_Pos.getText()));
-
-
+        else if (e.getSource() == listar_telefones)
+            ta.setText(tf_tel.getText() + "\n" + Telefone.SelecionaTelefones(tf_tel.getText()));
 
         else if (e.getSource() == send_criar_pessoa)
             Pessoa.InserePessoa(nome.getText(), data.getText(), cep.getText(),
@@ -255,15 +280,15 @@ class ActionEventDemo implements ActionListener {
         }
         else if (e.getSource() == send_criar_possui)
             Possui.InserePossui(Integer.parseInt(codigoP.getText()), placaP.getText());
-
-
+        else if (e.getSource() == send_criar_telefone)
+            Telefone.InsereTelefone(Integer.parseInt(codigoT.getText()), telefone.getText());
 
 
         tf_p.setText("");
         tf_c.setText("");
         tf_Ami.setText("");
         tf_Pos.setText("");
-
+        tf_tel.setText("");
     }
 }
 
