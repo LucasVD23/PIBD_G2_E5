@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
+//import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 class ActionEventDemo implements ActionListener {
@@ -157,7 +158,7 @@ class ActionEventDemo implements ActionListener {
         criar_C.add(send_criar_carro);
 
         criar_Ami.setLayout(new BoxLayout(criar_Ami, BoxLayout.Y_AXIS));
-
+/*
         JPanel criar_Ami_cods = new JPanel();
         criar_Ami_cods.setLayout(new GridLayout(2,4));
 
@@ -170,6 +171,11 @@ class ActionEventDemo implements ActionListener {
 
         criar_Ami.add(data_amizade_l);
         criar_Ami.add(data_amizade);
+*/
+        criar_Ami.add(codigo1_l);
+        criar_Ami.add(codigo1);        
+        criar_Ami.add(codigo2_l);
+        criar_Ami.add(codigo2);
 
         criar_Ami.add(send_criar_amizade);
 
@@ -234,11 +240,18 @@ class ActionEventDemo implements ActionListener {
         else if (e.getSource() == send_criar_carro)
             Carro.InsereCarro(placa.getText(), Integer.parseInt(ano.getText()), cor.getText(), modelo.getText());
         else if (e.getSource() == send_criar_amizade){
-        	
-        	LocalDate obj = LocalDate.now();
-        	Date date = Date.valueOf(obj);
-        	
+            Date date;
+        	/*if (data_amizade.getText().length() > 0) {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                String data_a = data_amizade.getText();
+                date = format.parse(data_a);
+            }
+            else {*/
+                LocalDate obj = LocalDate.now();
+                date = Date.valueOf(obj);
+            //}
             Amizade.InsereAmizade(Integer.parseInt(codigo1.getText()), Integer.parseInt(codigo2.getText()), date);
+            
         }
         else if (e.getSource() == send_criar_possui)
             Possui.InserePossui(Integer.parseInt(codigoP.getText()), placaP.getText());
