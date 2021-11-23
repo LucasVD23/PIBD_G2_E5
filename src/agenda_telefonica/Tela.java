@@ -5,45 +5,48 @@ import java.awt.*;
 import java.awt.event.*;
 
 class ActionEventDemo implements ActionListener {
-    JFrame frame = new JFrame("Consulta da base de Agenda_Telefonica");
-    JButton listar_pessoas = new JButton("Listar Pessoas");
-    JButton listar_carros = new JButton("Listar Carros");
-    JButton listar_amizades = new JButton("Listar Amizades");
-    JButton listar_possui = new JButton("Listar Possui");
-    JButton listar_telefones = new JButton("Listar Telefones");
+    JFrame frame = new JFrame("Consulta da base de Agenda_Telefônica");
+    JButton listar_pessoas = new JButton("Listar/Procurar Pessoas");
+    JButton listar_carros = new JButton("Listar/Procurar Carros");
+    JButton listar_amizades = new JButton("Listar/Procurar Amizades");
+    JButton listar_possui = new JButton("Listar/Procurar Possui");
+    JButton listar_telefones = new JButton("Listar/Procurar Telefones");
 
     JButton send_criar_pessoa = new JButton("Criar Pessoa");
     JButton send_criar_carro = new JButton("Criar Carro");
     JButton send_criar_possui = new JButton("Criar Possui");
     JButton send_criar_amizade = new JButton("Criar Amizade");
 
-    JLabel label_p = new JLabel("Digite o nome da pessoa que voce quer procurar: ");
-    JLabel label_c = new JLabel("Digite o modelo do carro que voce quer procurar: ");
-    JLabel label_Ami = new JLabel("Digite o codigo da pessoa para ver seus amigos: ");
-    JLabel label_Pos = new JLabel("Digite o codigo da pessoa ou a placa do carro: ");
+    JLabel label_p = new JLabel("Digite o nome da pessoa que você quer procurar: ");
+    JLabel label_c = new JLabel("Digite o modelo do carro que você quer procurar: ");
+    JLabel label_Ami = new JLabel("Digite o código da pessoa para ver seus amigos: ");
+    JLabel label_Pos = new JLabel("Digite o código da pessoa ou a placa do carro: ");
 
     JTextField tf_p = new JTextField(10);  
     JTextField tf_c = new JTextField(10);  
     JTextField tf_Ami = new JTextField(10); 
     JTextField tf_Pos = new JTextField(10);   
 
-    JTextArea ta = new JTextArea();
+    JTextArea ta = new JTextArea(50, 40);
 
-    JLabel codigo_l = new JLabel("codigo ");
-    JLabel nome_l = new JLabel("nome");
-    JLabel data_l = new JLabel("nascimento");
-    JLabel cep_l = new JLabel("cep ");
-    JLabel numero_l = new JLabel("numero ");
-    JLabel complemento_l = new JLabel("complemento ");
-    JLabel homepage_l = new JLabel("homepage ");
+    JLabel codigo_l = new JLabel("Código");
+    JLabel nome_l = new JLabel("Nome");
+    JLabel data_l = new JLabel("Nascimento");
+    JLabel cep_l = new JLabel("CEP");
+    JLabel numero_l = new JLabel("Número");
+    JLabel complemento_l = new JLabel("Complemento");
+    JLabel homepage_l = new JLabel("homepage");
 
-    JLabel placa_l = new JLabel("placa ");
-    JLabel ano_l = new JLabel("ano ");
-    JLabel cor_l = new JLabel("cor ");
-    JLabel modelo_l = new JLabel("modelo ");
+    JLabel placa_l = new JLabel("Placa");
+    JLabel ano_l = new JLabel("Ano");
+    JLabel cor_l = new JLabel("Cor");
+    JLabel modelo_l = new JLabel("Modelo");
 
-    JLabel codigo1_l = new JLabel("codigo 1");
-    JLabel codigo2_l = new JLabel("codigo 2");
+    JLabel codigo1_l = new JLabel("Código 1");
+    JLabel codigo2_l = new JLabel("Código 2");
+
+    JLabel codigoP_l = new JLabel("Código da pessoa");
+    JLabel placaP_l = new JLabel("Placa do carro");
 
     JTextField codigo = new JTextField(10);  
     JTextField nome = new JTextField(10);  
@@ -61,6 +64,9 @@ class ActionEventDemo implements ActionListener {
     JTextField codigo1 = new JTextField(10); 
     JTextField codigo2 = new JTextField(10); 
 
+    JTextField codigoP = new JTextField(10); 
+    JTextField placaP = new JTextField(10); 
+
     ActionEventDemo() {
         prepareGUI();
 
@@ -70,17 +76,22 @@ class ActionEventDemo implements ActionListener {
         // Creating the Frame
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 720);
+        frame.setSize(1200, 600);
 
         // Creating the panel at bottom and adding components
-        JPanel panel = new JPanel(); // the panel is not visible in output
+        JPanel panel = new JPanel();
         JPanel criar_P = new JPanel();
         JPanel criar_C = new JPanel();
         JPanel criar_Ami = new JPanel();
         JPanel criar_Pos = new JPanel();
         JPanel criar = new JPanel();
 
+        criar.setLayout(new GridLayout(2,2));
+        //criar.setLayout(new BoxLayout(criar, BoxLayout.Y_AXIS));
+        criar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         panel.setLayout(new GridLayout(5,3));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         
         panel.add(label_p);
         panel.add(tf_p);
@@ -96,20 +107,11 @@ class ActionEventDemo implements ActionListener {
         panel.add(listar_possui);
         //panel.add(listar_telefones);
 
-        criar_P.setLayout(new BoxLayout(criar_P, BoxLayout.PAGE_AXIS));
-
+        criar_P.setLayout(new BoxLayout(criar_P, BoxLayout.Y_AXIS));
+/*
         criar_P.add(codigo_l);
         criar_P.add(codigo);
-
-        criar_P.add(cep_l);
-        criar_P.add(cep);
-
-        criar_P.add(numero_l);
-        criar_P.add(numero);
-
-        criar_P.add(complemento_l);
-        criar_P.add(complemento);
-
+*/
         criar_P.add(nome_l);
         criar_P.add(nome);
 
@@ -118,6 +120,19 @@ class ActionEventDemo implements ActionListener {
 
         criar_P.add(homepage_l);
         criar_P.add(homepage);
+
+        JPanel criar_P_local = new JPanel();
+        criar_P_local.setLayout(new GridLayout(2,6));
+        
+        criar_P_local.add(cep_l);
+        criar_P_local.add(numero_l);
+        criar_P_local.add(complemento_l);
+
+        criar_P_local.add(cep);
+        criar_P_local.add(numero);
+        criar_P_local.add(complemento);
+
+        criar_P.add(criar_P_local);
 
         criar_P.add(send_criar_pessoa);
 
@@ -147,17 +162,20 @@ class ActionEventDemo implements ActionListener {
 
         criar_Ami.add(send_criar_amizade);
 
-        //criar_Ami.setBorder(BorderFactory.createLineBorder(Color.black));
-
         criar_Pos.setLayout(new BoxLayout(criar_Pos, BoxLayout.Y_AXIS));
 
-        criar_Pos.add(codigo_l);
-        criar_Pos.add(codigo);
+        criar_Pos.add(codigoP_l);
+        criar_Pos.add(codigoP);
 
-        criar_Pos.add(placa_l);
-        criar_Pos.add(placa);
+        criar_Pos.add(placaP_l);
+        criar_Pos.add(placaP);
 
         criar_Pos.add(send_criar_possui);
+
+        criar_C.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        criar_P.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        criar_Ami.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        criar_Pos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         criar.add(criar_C);
         criar.add(criar_P);
@@ -167,10 +185,8 @@ class ActionEventDemo implements ActionListener {
 
         // Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, panel);
-        frame.getContentPane().add(BorderLayout.SOUTH, ta);
-        frame.getContentPane().add(BorderLayout.CENTER, criar);
-        //frame.getContentPane().add(BorderLayout.WEST, criar_C);
-
+        frame.getContentPane().add(BorderLayout.EAST, ta);
+        frame.getContentPane().add(BorderLayout.WEST, criar);
 
         frame.setVisible(true);
 
