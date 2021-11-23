@@ -9,13 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Carro {
+public class Carro extends Abstract{
 	private String placa;
 	private int ano;
 	private String cor;
 	private String modelo;
 	
-	static final String DATABASE_URL = "jdbc:postgresql://localhost/Agenda_telefonica?user=postgres&password=postegres";
 	static Connection con = null;
 	static Statement stm = null;
 	static ResultSet rs = null;
@@ -48,7 +47,7 @@ public class Carro {
 		this.modelo = modelo;
 	}
 	
-	public void InsereCarro(String placa, int ano, String cor, String modelo) {	
+	public static void InsereCarro(String placa, int ano, String cor, String modelo) {	
 		try {
 			Carro.con = DriverManager.getConnection(Carro.DATABASE_URL);
 			PreparedStatement insere = con.prepareStatement("insert into "
@@ -58,6 +57,8 @@ public class Carro {
 			insere.setInt(2,ano);
 			insere.setString(3,cor);
 			insere.setString(4,modelo);
+
+			insere.executeUpdate();
 			
 		}catch(SQLException e){
 			System.err.println(e);
@@ -68,11 +69,11 @@ public class Carro {
 	public static String SelecionaCarro(String n) {
 		try {
 			// Abrir a conexão
-			Amizade.con = DriverManager.getConnection(Amizade.DATABASE_URL);
+			Carro.con = DriverManager.getConnection(Carro.DATABASE_URL);
 			// Criar o comando
 			stm = con.createStatement();
 			if (n.length() > 0)
-				rs = stm.executeQuery("select * from Carro where Carro.placa = '" + n + "'");
+				rs = stm.executeQuery("select * from Carro where placa = '" + n + "'");
 			else
 				rs = stm.executeQuery("select * from Carro");
 			// Criar o metadado da tabela
@@ -107,7 +108,7 @@ public class Carro {
 				carro1.setAno(ano);
 				carro1.setCor(cor);
 				carro1.setModelo(modelo);
-				System.out.println("x");
+				d.add(carro1);
 			}
 
 			for (Carro umCarro : d) {

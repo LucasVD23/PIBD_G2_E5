@@ -7,12 +7,17 @@ import java.awt.event.*;
 class ActionEventDemo implements ActionListener {
     JFrame frame = new JFrame("Consulta da base de Pessoas");
     JButton listar_pessoas = new JButton("Listar Pessoas");
+    JButton listar_carros = new JButton("Listar Carros");
     JButton send_criar_pessoa = new JButton("Criar Pessoa");
     JButton send_criar_carro = new JButton("Criar Carro");
 
 
-    JLabel label = new JLabel("Digite o nome da pessoa que voce quer procurar: ");
-    JTextField tf = new JTextField(10);  
+    JLabel label_p = new JLabel("Digite o nome da pessoa que voce quer procurar: ");
+    JLabel label_c = new JLabel("Digite o modelo do carro que voce quer procurar: ");
+
+    JTextField tf_p = new JTextField(10);  
+    JTextField tf_c = new JTextField(10);  
+
     JTextArea ta = new JTextArea();
 
     JLabel codigo_l = new JLabel("codigo ");
@@ -52,75 +57,79 @@ class ActionEventDemo implements ActionListener {
         // Creating the Frame
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 600);
-        // Creating the MenuBar and adding components
-        /*
-         * JMenuBar mb = new JMenuBar(); JMenu m1 = new JMenu("FILE"); JMenu m2 = new
-         * JMenu("Help"); mb.add(m1); mb.add(m2); JMenuItem m11 = new JMenuItem("Open");
-         * JMenuItem m22 = new JMenuItem("Save as"); m1.add(m11); m1.add(m22);
-         */
+        frame.setSize(1280, 720);
 
         // Creating the panel at bottom and adding components
         JPanel panel = new JPanel(); // the panel is not visible in output
+        JPanel criar_P = new JPanel();
+        JPanel criar_C = new JPanel();
 
-        JPanel criar = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(label); // Components Added using Flow Layout
-        panel.add(tf);
+        panel.add(label_p);
+        panel.add(tf_p);
         panel.add(listar_pessoas);
-        BoxLayout boxlayout = new BoxLayout(criar, BoxLayout.Y_AXIS);
-        criar.setLayout(boxlayout);;
+        panel.add(label_c);
+        panel.add(tf_c);
+        panel.add(listar_carros);
 
-        criar.add(codigo_l);
-        criar.add(codigo);
+        criar_P.setLayout(new BoxLayout(criar_P, BoxLayout.Y_AXIS));
 
-        criar.add(cep_l);
-        criar.add(cep);
+        criar_P.add(codigo_l);
+        criar_P.add(codigo);
 
-        criar.add(numero_l);
-        criar.add(numero);
+        criar_P.add(cep_l);
+        criar_P.add(cep);
 
-        criar.add(complemento_l);
-        criar.add(complemento);
+        criar_P.add(numero_l);
+        criar_P.add(numero);
 
-        criar.add(nome_l);
-        criar.add(nome);
+        criar_P.add(complemento_l);
+        criar_P.add(complemento);
 
-        criar.add(data_l);
-        criar.add(data);
+        criar_P.add(nome_l);
+        criar_P.add(nome);
 
-        criar.add(homepage_l);
-        criar.add(homepage);
+        criar_P.add(data_l);
+        criar_P.add(data);
 
-        criar.add(send_criar_pessoa);
+        criar_P.add(homepage_l);
+        criar_P.add(homepage);
 
-        criar.add(placa_l);
-        criar.add(placa);
+        criar_P.add(send_criar_pessoa);
 
-        criar.add(ano_l);
-        criar.add(ano);
+        criar_C.setLayout(new BoxLayout(criar_C, BoxLayout.Y_AXIS));
 
-        criar.add(modelo_l);
-        criar.add(modelo);
+        criar_C.add(placa_l);
+        criar_C.add(placa);
 
-        criar.add(cor_l);
-        criar.add(cor);
+        criar_C.add(ano_l);
+        criar_C.add(ano);
 
-        criar.add(send_criar_carro);
+        criar_C.add(modelo_l);
+        criar_C.add(modelo);
+
+        criar_C.add(cor_l);
+        criar_C.add(cor);
+
+        criar_C.add(send_criar_carro);
 
 
         // Text Area at the Center
 
         // Adding Components to the frame.
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        // frame.getContentPane().add(BorderLayout.NORTH, mb);
-        frame.getContentPane().add(BorderLayout.CENTER, ta);
-        frame.getContentPane().add(BorderLayout.NORTH, criar);
+        frame.getContentPane().add(BorderLayout.NORTH, panel);
+        frame.getContentPane().add(BorderLayout.SOUTH, ta);
+        frame.getContentPane().add(BorderLayout.EAST, criar_P);
+        frame.getContentPane().add(BorderLayout.WEST, criar_C);
+
 
         frame.setVisible(true);
 
         listar_pessoas.addActionListener(this);
+        listar_carros.addActionListener(this);
         send_criar_pessoa.addActionListener(this);
+        send_criar_carro.addActionListener(this);
 
     }
 
@@ -128,11 +137,16 @@ class ActionEventDemo implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == listar_pessoas)
-            ta.setText(tf.getText() + "\n" + Pessoa.SelecionaPessoa(tf.getText()));
+            ta.setText(tf_p.getText() + "\n" + Pessoa.SelecionaPessoa(tf_p.getText()));
+        else if (e.getSource() == listar_carros)
+            ta.setText(tf_c.getText() + "\n" + Carro.SelecionaCarro(tf_c.getText()));
         else if (e.getSource() == send_criar_pessoa)
             Pessoa.InserePessoa(Integer.parseInt(codigo.getText()), nome.getText(), data.getText(), cep.getText(),
                     complemento.getText(), Integer.parseInt(numero.getText()), homepage.getText());
-        tf.setText("");
+        else if (e.getSource() == send_criar_carro)
+            Carro.InsereCarro(placa.getText(), Integer.parseInt(ano.getText()), cor.getText(), modelo.getText());
+        tf_p.setText("");
+        tf_c.setText("");
 
     }
 }
