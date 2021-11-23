@@ -9,12 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Amizade {
+public class Amizade extends Abstract{
 	private int codigo1;
 	private int codigo2;
 	private String data_inicio;
 	
-	static final String DATABASE_URL = "jdbc:postgresql://localhost/Agenda_telefonica?user=postgres&password=postegres";
 	static Connection con = null;
 	static Statement stm = null;
 	static ResultSet rs = null;

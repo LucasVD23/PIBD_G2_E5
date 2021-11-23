@@ -9,11 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Possui {
+public class Possui extends Abstract{
 	private int codigoPessoa;
 	private String placa;
 	
-	static final String DATABASE_URL = "jdbc:postgresql://localhost/Agenda_telefonica?user=postgres&password=postegres";
 	static Connection con = null;
 	static Statement stm = null;
 	static ResultSet rs = null;
