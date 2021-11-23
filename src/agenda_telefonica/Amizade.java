@@ -3,15 +3,24 @@ package agenda_telefonica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Amizade {
 	private int codigo1;
 	private int codigo2;
 	private String data_inicio;
 	
-	static final String DATABASE_URL = "jdbc:postgresql://localhost/pibd?user=postgres&password=postgres";
+	static final String DATABASE_URL = "jdbc:postgresql://localhost/Agenda_telefonica?user=postgres&password=postegres";
 	static Connection con = null;
+	static Statement stm = null;
+	static ResultSet rs = null;
+	static ResultSetMetaData md = null;
+	
+	static String sel = "";
 	
 	public int getCodigo1() {
 		return codigo1;
@@ -48,6 +57,65 @@ public class Amizade {
 			System.err.println(e);
 		}
 	
+	}
+	public static String SelecionaAmizade(String n) {
+		try {
+			// Abrir a conexão
+			Amizade.con = DriverManager.getConnection(Amizade.DATABASE_URL);
+			// Criar o comando
+			stm = con.createStatement();
+			if (n.length() > 0)
+				rs = stm.executeQuery("select * from Amizade where Amizde.codigo1 = '" + n + "'");
+			else
+				rs = stm.executeQuery("select * from Amizade");
+			// Criar o metadado da tabela
+			md = rs.getMetaData();
+			int nroColunas = md.getColumnCount();
+			// Exibir os metadados/dados
+			for (int i = 1; i <= nroColunas; i++)
+				System.out.printf("%s\t", md.getColumnName(i));
+
+			ArrayList<Amizade> d = new ArrayList<Amizade>();
+
+			Amizade amizade1;
+
+			int codigo1;
+			int codigo2;
+			String data_inicio;
+			
+
+			sel = "";
+			// Usar os dados e mostra-los
+			while (rs.next()) {
+
+				amizade1 = new Amizade();
+
+				codigo1= rs.getInt("codigo1");
+				codigo2 = rs.getInt("codigo2");
+				data_inicio = rs.getString("data_inicio");
+
+				amizade1.setCodigo1(codigo1);
+				amizade1.setCodigo2(codigo2);
+				amizade1.setData_inicio(data_inicio);
+				System.out.println("x");
+			}
+
+			for (Amizade umAmizade : d) {
+				sel = sel + umAmizade.getCodigo1() + ", " + umAmizade.getCodigo2() + ", " + umAmizade.getData_inicio() + " "
+						+ "\n ";
+
+				System.out.printf("\n%d\t%d\t%s", umAmizade.getCodigo1(), umAmizade.getCodigo2(),umAmizade.getData_inicio());
+			}
+			// Fechar os objetos
+			rs.close();
+			stm.close();
+			con.close();
+		} catch (SQLException e) {
+			System.err.println(e);
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+		return sel;
 	}
 	
 }

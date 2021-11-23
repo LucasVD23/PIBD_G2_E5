@@ -88,7 +88,7 @@ public class Telefone {
 			}
 
 			for (Telefone umTelefone : d) {
-				sel = sel + umTelefone.getCodigo_pessoa() + ", " + umTelefone.getTelefone() + ", "
+				sel = sel + umTelefone.getCodigo_pessoa() + ", " + umTelefone.getTelefone() 
 						+ "\n ";
 
 				System.out.printf("\n%d\t%s", umTelefone.getCodigo_pessoa(), umTelefone.getTelefone());

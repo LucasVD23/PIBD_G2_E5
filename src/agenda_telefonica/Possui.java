@@ -89,7 +89,7 @@ public class Possui {
 			}
 
 			for (Possui umPossui : d) {
-				sel = sel + umPossui.getCodigoPessoa() + ", " + umPossui.getPlaca() + ", "
+				sel = sel + umPossui.getCodigoPessoa() + ", " + umPossui.getPlaca() 
 						+ "\n ";
 
 				System.out.printf("\n%d\t%s", umPossui.getCodigoPessoa(), umPossui.getPlaca());
