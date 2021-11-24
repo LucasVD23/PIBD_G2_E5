@@ -33,7 +33,7 @@ class ActionEventDemo implements ActionListener {
     JTextField tf_Pos = new JTextField(10);   
     JTextField tf_tel = new JTextField(10);   
 
-    JTextArea ta = new JTextArea(50, 40);
+    JTextArea ta = new JTextArea(/*20, 20*/);
 
     JLabel codigo_l = new JLabel("Código");
     JLabel nome_l = new JLabel("Nome");
@@ -101,7 +101,7 @@ class ActionEventDemo implements ActionListener {
         JPanel criar_tel = new JPanel();
         JPanel criar = new JPanel();
 
-        criar.setLayout(new GridLayout(3,2));
+        //criar.setLayout(new GridLayout(1,7));
         //criar.setLayout(new BoxLayout(criar, BoxLayout.Y_AXIS));
         criar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -227,8 +227,8 @@ class ActionEventDemo implements ActionListener {
 
         // Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, panel);
-        frame.getContentPane().add(BorderLayout.EAST, ta);
-        frame.getContentPane().add(BorderLayout.WEST, criar);
+        frame.getContentPane().add(BorderLayout.SOUTH, ta);
+        frame.getContentPane().add(BorderLayout.CENTER, criar);
 
         frame.setVisible(true);
 
